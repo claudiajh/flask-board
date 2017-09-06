@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="ui left aligned stacked segment">
+  <form class="ui form" action="{{request.path}}" method="post">
+    <div class="field">
+      <label>아이디</label>
+      <input type="text" name="user" placeholder="Id.....">
+    </div>
+    <div class="field">
+      <label>제목</label>
+      <input type="text" name="title" placeholder="Title......">
+    </div>
+    <div class="field">
+      <label>내용</label>
+      <textarea name="content" placeholder="Conents...."></textarea>
+    </div>
+    <button class="ui fluid large teal button" type="submit">Submit</button>
+  </form>
+</div>
+
+{% endblock %}
