@@ -11,8 +11,8 @@ def board_index():
     return render_template('show_board.html', contents=content_list)
 
 
-@app.route('/board_new', methods=['GET', 'POST'])
-def new_content():
+@app.route('/board_add', methods=['GET', 'POST'])
+def add_content():
     if request.method == 'POST':
         nowTime = datetime.utcnow()
         newContent = BoardModel(title=request.form['title'],
@@ -25,10 +25,10 @@ def new_content():
         db.session.commit()
         return redirect(url_for('board_index'))
 
-    return render_template('new_content.html')
+    return render_template('add_content.html')
 
 
-@app.route('/board/<content_no>')
+@app.route('/board_show/<content_no>')
 def show_content(content_no):
     showContent = BoardModel.query.filter_by(no=content_no).one()
 
