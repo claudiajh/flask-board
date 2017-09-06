@@ -52,3 +52,13 @@ def modify_content(content_no):
         return redirect(url_for('board_index', content_no=modifyContent.no))
 
     return render_template('modify_content.html', modify_content=modifyContent)
+
+
+@app.route('/board_del/<content_no>')
+def del_content(content_no):
+    delContent = BoardModel.query.filter_by(no=content_no).one()
+
+    db.session.delete(delContent)
+    db.session.commit()
+
+    return redirect(url_for('board_index'))
