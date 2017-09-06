@@ -17,7 +17,7 @@
     {% for content in contents %}
     <tr>
       <td>{{content.no}}</td>
-      <td><a href="">{{content.title}}</a></td>
+      <td><a href="{{ url_for('show_content',content_no=content.no) }}">{{content.title}}</a></td>
       <td>{{content.content}}</td>
       <td>{{content.user}}</td>
       <td>{{content.create_time}}</td>
@@ -26,5 +26,4 @@
     </tbody>
   </table>
 </div>
-
 {% endblock %}
