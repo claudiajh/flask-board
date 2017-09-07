@@ -19,11 +19,19 @@
       <td>{{content.no}}</td>
       <td><a href="{{ url_for('show_content',content_no=content.no) }}">{{content.title}}</a></td>
       <td>{{content.content}}</td>
-      <td>{{content.user}}</td>
+      <td>{{content.id}}</td>
       <td>{{content.modify_time}}</td>
     </tr>
     {% endfor %}
     </tbody>
   </table>
 </div>
+
+<div class="ui message">
+  <div class="two ui buttons">
+    <a class="ui red button" href="{{ url_for('add_content')}}">글쓰기</a>
+    <a class="ui blue button" href="{{ url_for('board_index')}}">글목록</a>
+  </div>
+</div>
+
 {% endblock %}
