@@ -16,7 +16,10 @@
       <input type="password" name="pw" placeholder="Password">
     </div>
   </div>
-  <div class="ui fluid large teal submit button">Login</div>
+  <div class="two ui buttons">
+    <a class="ui fluid large teal submit button">Login</a>
+    <a class="ui fluid large blue submit button" href="{{ url_for('sign_up')}}">SignUP</a>
+  </div>
 </div>
 
 {% endblock %}
