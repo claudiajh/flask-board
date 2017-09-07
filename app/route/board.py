@@ -1,6 +1,6 @@
 from app import app, db
 from flask import redirect, url_for, request, render_template
-from app.models.boards import BoardModel
+from app.models.BoardModel import BoardModel
 from datetime import datetime
 
 
