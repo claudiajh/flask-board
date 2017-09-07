@@ -4,4 +4,4 @@ from flask import redirect, url_for
 
 @app.route('/')
 def main():
-    return redirect(url_for('board_index'))
+    return redirect(url_for('login_index'))
