@@ -4,8 +4,13 @@ from datetime import datetime
 from app.models.UserModel import UserModel
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login_index():
+    if request.method == 'POST':
+        loginUser = UserModel.query.filter_by(id=request.form['id']).filter_by(pw=request.form['pw']).one()
+        if loginUser is not None:
+            return redirect(url_for('board_index'))
+
     return render_template('login.html')
 
 
