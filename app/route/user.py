@@ -8,8 +8,13 @@ from app.models.UserModel import UserModel
 def login_index():
     if request.method == 'POST':
         loginUser = UserModel.query.filter_by(username=request.form['username']).filter_by(
-            password=request.form['password']).one()
-        if loginUser is not None:
+            password=request.form['password']).first()  # one -> 첫 번째꺼가 없으면 오류, first -> 첫 번째꺼가 없으면 None
+
+        if loginUser is None:
+            flash('id, pw를 확인해주세요.')
+            return redirect(url_for('login_index'))
+
+        else:
             return redirect(url_for('board_index'))
 
     return render_template('login.html')

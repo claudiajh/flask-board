@@ -2,8 +2,20 @@
 
 {% block body %}
   <div class="ui stacked segment">
-    <form class="ui form" action="{{ request.path }}" method="post">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="ui negative message">
+          <i class="close icon"></i>
+          <div class="header">
+            {% for message in messages %}
+              {{ message }}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endwith %}
 
+    <form class="ui form" action="{{ request.path }}" method="post">
       <div class="field">
         <div class="ui fluid left icon input">
           <i class="user icon"></i>
