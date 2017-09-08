@@ -2,29 +2,29 @@
 
 {% block body %}
 
-<div class="ui left aligned stacked segment">
-  <form class="ui form" action="{{request.path}}" method="post">
-    <div class="field">
-      <label>아이디</label>
+  <div class="ui left aligned stacked segment">
+    <form class="ui form" action="{{ request.path }}" method="post">
+      <div class="field">
+        <label>아이디</label>
         <input type="text" name="username" placeholder="Id.....">
-    </div>
-    <div class="field">
-      <label>제목</label>
-      <input type="text" name="title" placeholder="Title......">
-    </div>
-    <div class="field">
-      <label>내용</label>
-      <textarea name="content" placeholder="Conents...."></textarea>
-    </div>
-    <button class="ui fluid large teal button" type="submit">Submit</button>
-  </form>
-</div>
-
-<div class="ui message">
-  <div class="two ui buttons">
-    <a class="ui red button" href="{{ url_for('add_content')}}">글쓰기</a>
-    <a class="ui blue button" href="{{ url_for('board_index')}}">글목록</a>
+      </div>
+      <div class="field">
+        <label>제목</label>
+        <input type="text" name="title" placeholder="Title......">
+      </div>
+      <div class="field">
+        <label>내용</label>
+        <textarea name="content" placeholder="Conents...."></textarea>
+      </div>
+      <button class="ui fluid large teal button" type="submit">Submit</button>
+    </form>
   </div>
-</div>
+
+  <div class="ui message">
+    <div class="two ui buttons">
+      <a class="ui red button" href="{{ url_for('add_content') }}">글쓰기</a>
+      <a class="ui blue button" href="{{ url_for('board_index') }}">글목록</a>
+    </div>
+  </div>
 
 {% endblock %}

@@ -1,28 +1,25 @@
 {% extends "layout.html" %}
 
 {% block body %}
+  <div class="ui stacked segment">
+    <form class="ui form" action="{{ request.path }}" method="post">
 
-
-    <div class="ui stacked segment">
-        <form class="ui form" action="{{ request.path }}" method="post">
-
-            <div class="field">
-                <div class="ui fluid left icon input">
-                    <i class="user icon"></i>
-                    <input type="text" name="username" placeholder="username">
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui fluid left icon input">
-                    <i class="lock icon"></i>
-                    <input type="password" name="password" placeholder="Password">
-                </div>
-            </div>
-            <div class="two ui buttons">
-                <button class="ui fluid large teal submit button" href="{{ url_for('login_index') }}">Login</button>
-                <a class="ui fluid large blue submit button" href="{{ url_for('sign_up') }}">SignUP</a>
-            </div>
-        </form>
-    </div>
-
+      <div class="field">
+        <div class="ui fluid left icon input">
+          <i class="user icon"></i>
+          <input type="text" name="username" placeholder="username">
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui fluid left icon input">
+          <i class="lock icon"></i>
+          <input type="password" name="password" placeholder="Password">
+        </div>
+      </div>
+      <div class="two ui buttons">
+        <button class="ui fluid large teal submit button" href="{{ url_for('login_index') }}">Login</button>
+        <a class="ui fluid large blue submit button" href="{{ url_for('sign_up') }}">SignUP</a>
+      </div>
+    </form>
+  </div>
 {% endblock %}
