@@ -1,37 +1,37 @@
 <!doctype html>
 <html>
 <head>
-  <title>My Flask Board</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-  <style type="text/css">
-    body {
-      background-color: #DADADA;
-    }
+    <title>My Flask Board</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
 
-    body > .grid {
-      height: 100%;
-    }
+        body > .grid {
+            height: 100%;
+        }
 
-    .column {
-      max-width: 1000px;
-    }
-  </style>
+        .column {
+            max-width: 1000px;
+        }
+    </style>
 </head>
 <body>
 <div class="ui middle aligned center aligned grid">
 
-  <div class="column">
-    <h2 class="ui teal image header">
-      <div class="content">
-        Flask Board
-      </div>
-    </h2>
+    <div class="column">
+        <h2 class="ui teal image header">
+            <div class="content">
+                <a href="{{ url_for('index') }}">Flask Board</a>
+            </div>
+        </h2>
 
-    {% block body %}
-    {% endblock %}
+        {% block body %}
+        {% endblock %}
 
-  </div>
+    </div>
 </div>
 </body>
 </html>

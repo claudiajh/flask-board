@@ -3,5 +3,5 @@ from flask import redirect, url_for
 
 
 @app.route('/')
-def main():
+def index():
     return redirect(url_for('login_index'))
