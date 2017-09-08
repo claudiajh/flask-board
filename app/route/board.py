@@ -14,10 +14,11 @@ def board_index():
 @app.route('/board_add', methods=['GET', 'POST'])
 def add_content():
     if request.method == 'POST':
+        usrname = request.cookies.get('username')
         nowTime = datetime.utcnow()
         newContent = BoardModel(title=request.form['title'],
                                 content=request.form['content'],
-                                username=request.form['username'],
+                                username=usrname,
                                 create_time=nowTime,
                                 modify_time=nowTime)
 
