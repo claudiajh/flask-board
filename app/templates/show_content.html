@@ -16,9 +16,9 @@
       <div class="ui left aligned header">{{ show_content.content }}</div>
 
       <div class="ui buttons">
-        <a class="ui red basic button" href="{{ url_for('modify_content', content_no=show_content.no) }}">글수정</a>
+        <a class="ui red basic button" href="{{ url_for('modify_content', content_no=show_content.no) }}">글 수정</a>
         <a class="ui blue basic button" href="{{ url_for('del_content', content_no=show_content.no) }}">글삭제</a>
-        <a class="ui green basic button" href="{{ url_for('board_index') }}">뒤로가기</a>
+        <a class="ui green basic button" href="{{ url_for('board_index') }}">글 목록</a>
       </div>
     </div>
   </div>
