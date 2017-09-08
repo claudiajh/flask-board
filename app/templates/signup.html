@@ -2,22 +2,41 @@
 
 {% block body %}
 
-<div class="ui left aligned stacked segment">
-  <form class="ui form" action="{{request.path}}" method="post">
-    <div class="field">
-      <label>아이디</label>
-        <input type="text" name="username" placeholder="username.....">
+
+    <div class="ui left aligned stacked segment">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="ui negative message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                    k
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form class="ui form" action="{{ request.path }}" method="post">
+            <div class="field">
+                <label>아이디</label>
+                <input type="text" name="username" placeholder="username.....">
+            </div>
+            <div class="field">
+                <label>비밀번호</label>
+                <input type="password" name="password" placeholder="password......">
+            </div>
+            <div class="field">
+                <label>비밀번호 확인</label>
+                <input type="password" name="check_password" placeholder="password......">
+            </div>
+            <div class="field">
+                <label>이메일</label>
+                <input type="text" name="email" placeholder="email......">
+            </div>
+            <button class="ui fluid large teal button" type="submit">Sign Up</button>
+        </form>
     </div>
-    <div class="field">
-      <label>비밀번호</label>
-        <input type="password" name="password" placeholder="password......">
-    </div>
-    <div class="field">
-      <label>이메일</label>
-      <input type="text" name="email" placeholder="email......">
-    </div>
-    <button class="ui fluid large teal button" type="submit">Sign Up</button>
-  </form>
-</div>
 
 {% endblock %}
