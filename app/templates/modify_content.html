@@ -2,6 +2,8 @@
 
 {% block body %}
 
+  {% include 'board_header.html' %}
+
   <div class="ui left aligned stacked segment">
     <form class="ui form" action="{{ request.path }}" method="post">
       <div class="field">
@@ -19,13 +21,6 @@
       </div>
       <button class="ui fluid large teal button" type="submit">수정하기</button>
     </form>
-  </div>
-
-  <div class="ui message">
-    <div class="two ui buttons">
-      <a class="ui red button" href="{{ url_for('add_content') }}">글쓰기</a>
-      <a class="ui blue button" href="{{ url_for('board_index') }}">글목록</a>
-    </div>
   </div>
 
 {% endblock %}

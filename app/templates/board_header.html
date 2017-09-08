@@ -1,0 +1,29 @@
+<div class="ui teal five item menu">
+  <a class="link item" href="{{ url_for('board_index') }}">
+    Home
+  </a>
+  <a class="link item">
+    Messages
+  </a>
+  <a class="link item">
+    Friends
+  </a>
+  <a class="link item">
+    Friends
+  </a>
+  <a class="link item" href="{{ url_for('sign_out') }}">
+    로그아웃
+  </a>
+</div>
+
+
+<script>
+  $(document).ready(function () {
+    $('.link.item').each(function () {
+      if (this.href == window.location.href) {
+        $(this).addClass('active')
+      }
+    })
+  })
+
+</script>

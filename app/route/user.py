@@ -1,5 +1,5 @@
 from app import app, db
-from flask import render_template, flash, redirect, request, url_for
+from flask import make_response, render_template, flash, redirect, request, url_for
 from datetime import datetime
 from app.models.UserModel import UserModel
 
@@ -15,7 +15,9 @@ def login_index():
             return redirect(url_for('login_index'))
 
         else:
-            return redirect(url_for('board_index'))
+            resp = make_response(redirect(url_for('board_index')))
+            resp.set_cookie('username', loginUser.username)
+            return resp
 
     return render_template('login.html')
 
@@ -42,3 +44,11 @@ def sign_up():
             return redirect(url_for('sign_up'))
 
     return render_template('signup.html')
+
+
+@app.route('/singout')
+def sign_out():
+    resp = redirect(url_for('index'))
+    resp.set_cookie('username', expires=0)
+
+    return resp
