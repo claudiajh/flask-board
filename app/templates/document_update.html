@@ -2,22 +2,22 @@
 
 {% block body %}
 
-  {% include 'board_header.html' %}
+  {% include 'document_header.html' %}
 
   <div class="ui left aligned stacked segment">
     <form class="ui form" action="{{ request.path }}" method="post">
       <div class="field">
         <label>아이디</label>
-        <input type="text" name="username" value="{{ modify_content.username }}"
-               placeholder="{{ modify_content.username }}">
+        <input type="text" name="username" value="{{ document_update.username }}"
+               placeholder="{{ document_update.username }}">
       </div>
       <div class="field">
         <label>제목</label>
-        <input type="text" name="title" value="{{ modify_content.title }}" placeholder="{{ modify_content.title }}">
+        <input type="text" name="title" value="{{ document_update.title }}" placeholder="{{ document_update.title }}">
       </div>
       <div class="field">
         <label>내용</label>
-        <textarea name="content">{{ modify_content.content }}</textarea>
+        <textarea name="content">{{ document_update.content }}</textarea>
       </div>
       <button class="ui fluid large teal button" type="submit">수정하기</button>
     </form>

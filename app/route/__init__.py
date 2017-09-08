@@ -1,5 +1,5 @@
 __all__ = [
     'index',
-    'board',
+    'document',
     'user'
 ]

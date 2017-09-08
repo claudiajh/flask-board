@@ -15,7 +15,7 @@ def login_index():
             return redirect(url_for('login_index'))
 
         else:
-            resp = make_response(redirect(url_for('board_index')))
+            resp = make_response(redirect(url_for('document_index')))
             resp.set_cookie('username', loginUser.username)
             return resp
 

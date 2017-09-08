@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+  {% include 'document_header.html' %}
+  <div class="ui stacked segment">
+
+    <div class="ui teal clearing segment">
+      <h3 class="ui left floated header">
+        {{ document_view.title }}
+      </h3>
+      <h3 class="ui right floated sub header">
+        작성자 : {{ document_view.username }} {{ document_view.create_time }}</h3>
+      <div class="ui clearing divider"></div>
+      <div class="ui left aligned header">{{ document_view.content }}</div>
+
+      <div class="ui buttons">
+        <a class="ui red basic button" href="{{ url_for('document_update', content_no=document_view.no) }}">글 수정</a>
+        <a class="ui blue basic button" href="{{ url_for('document_delete', content_no=document_view.no) }}">글삭제</a>
+        <a class="ui green basic button" href="{{ url_for('document_index') }}">글 목록</a>
+      </div>
+
+      <div class="ui clearing divider"></div>
+      <div class="ui form">
+        <div class="field">
+          <textarea name="content" rows="2" placeholder="Conents...."></textarea>
+        </div>
+        <a class="ui right floated teal mini button">댓글 쓰기</a>
+        {% if document_view.no > 0 %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

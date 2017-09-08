@@ -1,8 +1,8 @@
 from app import db
 
 
-class BoardModel(db.Model):
-    __tablename__ = 'board'
+class DocumentModel(db.Model):
+    __tablename__ = 'document'
     __table_args__ = {'mysql_collate': 'utf8_general_ci'}
 
     no = db.Column(db.Integer, primary_key=True)  # 번호
@@ -11,3 +11,4 @@ class BoardModel(db.Model):
     username = db.Column(db.String(50), nullable=False)  # 작성자
     create_time = db.Column(db.DATETIME)  # 작성일
     modify_time = db.Column(db.DATETIME)  # 수정일
+    coment_count = db.Column(db.Integer, nullable=False)  # 댓글수
