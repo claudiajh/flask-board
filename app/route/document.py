@@ -14,11 +14,11 @@ def doc_index():
 @app.route('/document/add', methods=['GET', 'POST'])
 def doc_add():
     if request.method == 'POST':
-        usrname = request.cookies.get('username')
+        username = request.cookies.get('username')
         nowTime = datetime.utcnow()
         newContent = DocumentModel(title=request.form['title'],
                                    content=request.form['content'],
-                                   username=usrname,
+                                   username=username,
                                    create_time=nowTime,
                                    modify_time=nowTime,
                                    coment_count=0)
