@@ -19,7 +19,7 @@
       <td>{{content.no}}</td>
       <td><a href="{{ url_for('show_content',content_no=content.no) }}">{{content.title}}</a></td>
       <td>{{content.content}}</td>
-      <td>{{content.id}}</td>
+        <td>{{ content.username }}</td>
       <td>{{content.modify_time}}</td>
     </tr>
     {% endfor %}

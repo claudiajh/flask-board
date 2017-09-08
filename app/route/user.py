@@ -7,7 +7,8 @@ from app.models.UserModel import UserModel
 @app.route('/login', methods=['GET', 'POST'])
 def login_index():
     if request.method == 'POST':
-        loginUser = UserModel.query.filter_by(id=request.form['id']).filter_by(pw=request.form['pw']).one()
+        loginUser = UserModel.query.filter_by(username=request.form['username']).filter_by(
+            password=request.form['password']).one()
         if loginUser is not None:
             return redirect(url_for('board_index'))
 
@@ -18,10 +19,10 @@ def login_index():
 def sign_up():
     if request.method == 'POST':
         nowTime = datetime.utcnow()
-        newUser = UserModel(id=request.form['id'],
-                            pw=request.form['pw'],
+        newUser = UserModel(username=request.form['username'],
+                            password=request.form['password'],
                             email=request.form['email'],
-                            signup_time=nowTime)
+                            create_time=nowTime)
 
         db.session.add(newUser)
         db.session.commit()

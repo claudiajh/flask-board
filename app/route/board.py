@@ -17,7 +17,7 @@ def add_content():
         nowTime = datetime.utcnow()
         newContent = BoardModel(title=request.form['title'],
                                 content=request.form['content'],
-                                id=request.form['id'],
+                                username=request.form['username'],
                                 create_time=nowTime,
                                 modify_time=nowTime)
 
@@ -42,7 +42,7 @@ def modify_content(content_no):
     if request.method == 'POST':
         nowTime = datetime.utcnow()
 
-        modifyContent.id = request.form['id']
+        modifyContent.username = request.form['username']
         modifyContent.title = request.form['title']
         modifyContent.content = request.form['content']
         modifyContent.modify_time = nowTime
