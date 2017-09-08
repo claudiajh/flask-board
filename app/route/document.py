@@ -4,15 +4,15 @@ from app.models.DocumentModel import DocumentModel
 from datetime import datetime
 
 
-@app.route('/board')
-def document_index():
+@app.route('/document')
+def doc_index():
     content_list = DocumentModel.query.all()
 
-    return render_template('document_list.html', contents=content_list)
+    return render_template('document/list.html', contents=content_list)
 
 
-@app.route('/board_add', methods=['GET', 'POST'])
-def document_add():
+@app.route('/document/add', methods=['GET', 'POST'])
+def doc_add():
     if request.method == 'POST':
         usrname = request.cookies.get('username')
         nowTime = datetime.utcnow()
@@ -25,20 +25,20 @@ def document_add():
 
         db.session.add(newContent)
         db.session.commit()
-        return redirect(url_for('document_index'))
+        return redirect(url_for('doc_index'))
 
-    return render_template('document_add.html')
+    return render_template('document/add.html')
 
 
-@app.route('/board_show/<content_no>')
-def document_view(content_no):
+@app.route('/document/view/<content_no>')
+def doc_view(content_no):
     showContent = DocumentModel.query.filter_by(no=content_no).one()
 
-    return render_template('document_view.html', document_view=showContent)
+    return render_template('document/view.html', doc_view=showContent)
 
 
-@app.route('/board_modify/<content_no>', methods=['GET', 'POST'])
-def document_update(content_no):
+@app.route('/document/update/<content_no>', methods=['GET', 'POST'])
+def doc_update(content_no):
     modifyContent = DocumentModel.query.filter_by(no=content_no).one()
 
     if request.method == 'POST':
@@ -51,16 +51,16 @@ def document_update(content_no):
 
         db.session.commit()
 
-        return redirect(url_for('document_index', content_no=modifyContent.no))
+        return redirect(url_for('doc_index', content_no=modifyContent.no))
 
-    return render_template('document_update.html', document_update=modifyContent)
+    return render_template('document/update.html', doc_update=modifyContent)
 
 
-@app.route('/board_del/<content_no>')
-def document_delete(content_no):
+@app.route('/document/delete/<content_no>')
+def doc_delete(content_no):
     delContent = DocumentModel.query.filter_by(no=content_no).one()
 
     db.session.delete(delContent)
     db.session.commit()
 
-    return redirect(url_for('document_index'))
+    return redirect(url_for('doc_index'))

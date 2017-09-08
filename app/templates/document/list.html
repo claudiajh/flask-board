@@ -2,7 +2,7 @@
 
 {% block body %}
 
-  {% include 'document_header.html' %}
+  {% include 'document/../header.html' %}
 
   <div class="ui stacked segment">
     <table class="ui teal table">
@@ -20,7 +20,7 @@
       {% for content in contents %}
         <tr>
           <td>{{ content.no }}</td>
-          <td><a href="{{ url_for('document_view',content_no=content.no) }}">{{ content.title }}</a></td>
+          <td><a href="{{ url_for('doc_view',content_no=content.no) }}">{{ content.title }}</a></td>
           <td>{{ content.content }}</td>
           <td>{{ content.username }}</td>
           <td>{{ content.modify_time }}</td>
@@ -31,7 +31,7 @@
     </table>
 
     <div class="ui buttons">
-      <a class="ui red button" href="{{ url_for('document_add') }}">글쓰기</a>
+      <a class="ui red button" href="{{ url_for('doc_add') }}">글쓰기</a>
     </div>
   </div>
 
