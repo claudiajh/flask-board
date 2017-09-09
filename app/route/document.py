@@ -85,7 +85,7 @@ def doc_delete(doc_id):
         db.session.commit()
 
         flash('글이 삭제되었습니다.')
-        return redirect(url_for('doc_index'))
+        return redirect(url_for('d'))
 
 
     else:
