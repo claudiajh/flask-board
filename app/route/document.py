@@ -19,7 +19,7 @@ def doc_index():
 def doc_add():
     if request.method == 'POST':
         username = request.cookies.get('username')
-        user = UserModel.query.filter(username == username).one()
+        user = UserModel.query.filter_by(username=username).one()
 
         now = datetime.utcnow()
         new_content = DocumentModel(title=request.form['title'],
@@ -31,6 +31,7 @@ def doc_add():
 
         db.session.add(new_content)
         db.session.commit()
+
         return redirect(url_for('doc_index'))
 
     return render_template('document/add.html')
