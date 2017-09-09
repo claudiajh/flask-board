@@ -15,8 +15,8 @@
       <div class="ui left aligned header">{{ doc_view.content }}</div>
 
       <div class="ui buttons">
-        <a class="ui red basic button" href="{{ url_for('doc_update', content_no=doc_view.no) }}">글 수정</a>
-        <a class="ui blue basic button" href="{{ url_for('doc_delete', content_no=doc_view.no) }}">글삭제</a>
+        <a class="ui red basic button" href="{{ url_for('doc_update', doc_id=doc_view.id) }}">글 수정</a>
+        <a class="ui blue basic button" href="{{ url_for('doc_delete', doc_id=doc_view.id) }}">글삭제</a>
         <a class="ui green basic button" href="{{ url_for('doc_index') }}">글 목록</a>
       </div>
 
@@ -26,7 +26,7 @@
           <textarea name="content" rows="2" placeholder="Conents...."></textarea>
         </div>
         <a class="ui right floated teal mini button">댓글 쓰기</a>
-        {% if doc_view.no > 0 %}
+        {% if doc_view.id > 0 %}
         {% endif %}
       </div>
     </div>

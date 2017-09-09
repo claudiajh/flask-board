@@ -19,12 +19,12 @@
       <tbody>
       {% for content in contents %}
         <tr>
-          <td>{{ content.no }}</td>
-          <td><a href="{{ url_for('doc_view',content_no=content.no) }}">{{ content.title }}</a></td>
+          <td>{{ content.id }}</td>
+          <td><a href="{{ url_for('doc_view',doc_id=content.id) }}">{{ content.title }}</a></td>
           <td>{{ content.content }}</td>
           <td>{{ content.username }}</td>
-          <td>{{ content.modify_time }}</td>
-          <td>{{ content.coment_count }}</td>
+          <td>{{ content.update_time }}</td>
+          <td>{{ content.comment_count }}</td>
         </tr>
       {% endfor %}
       </tbody>
