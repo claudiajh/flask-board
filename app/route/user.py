@@ -7,16 +7,16 @@ from app.models.UserModel import UserModel
 @app.route('/signin', methods=['GET', 'POST'])
 def signin_index():
     if request.method == 'POST':
-        loginUser = UserModel.query.filter_by(username=request.form['username']).filter_by(
+        signin_user = UserModel.query.filter_by(username=request.form['username']).filter_by(
             password=request.form['password']).first()  # one -> 첫 번째꺼가 없으면 오류, first -> 첫 번째꺼가 없으면 None
 
-        if loginUser is None:
+        if signin_user is None:
             flash('id, pw를 확인해주세요.')
             return redirect(url_for('signin_index'))
 
         else:
             resp = make_response(redirect(url_for('doc_index')))
-            resp.set_cookie('username', loginUser.username)
+            resp.set_cookie('username', signin_user.username)
             return resp
 
     return render_template('signin.html')
@@ -28,12 +28,12 @@ def signup():
         now = datetime.utcnow()
 
         if request.form['password'] == request.form['check_password']:
-            newUser = UserModel(username=request.form['username'],
-                                password=request.form['password'],
-                                email=request.form['email'],
-                                create_time=now)
+            signup_user = UserModel(username=request.form['username'],
+                                    password=request.form['password'],
+                                    email=request.form['email'],
+                                    create_time=now)
 
-            db.session.add(newUser)
+            db.session.add(signup_user)
             db.session.commit()
             return redirect(url_for('signin_index'))
 

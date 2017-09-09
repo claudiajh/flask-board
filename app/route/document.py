@@ -15,15 +15,15 @@ def doc_index():
 def doc_add():
     if request.method == 'POST':
         username = request.cookies.get('username')
-        nowTime = datetime.utcnow()
-        newContent = DocumentModel(title=request.form['title'],
-                                   content=request.form['content'],
-                                   username=username,
-                                   create_time=nowTime,
-                                   modify_time=nowTime,
-                                   coment_count=0)
+        now = datetime.utcnow()
+        new_content = DocumentModel(title=request.form['title'],
+                                    content=request.form['content'],
+                                    username=username,
+                                    create_time=now,
+                                    modify_time=now,
+                                    coment_count=0)
 
-        db.session.add(newContent)
+        db.session.add(new_content)
         db.session.commit()
         return redirect(url_for('doc_index'))
 
@@ -32,35 +32,35 @@ def doc_add():
 
 @app.route('/document/view/<content_no>')
 def doc_view(content_no):
-    showContent = DocumentModel.query.filter_by(no=content_no).one()
+    view_content = DocumentModel.query.filter_by(no=content_no).one()
 
-    return render_template('document/view.html', doc_view=showContent)
+    return render_template('document/view.html', doc_view=view_content)
 
 
 @app.route('/document/update/<content_no>', methods=['GET', 'POST'])
 def doc_update(content_no):
-    modifyContent = DocumentModel.query.filter_by(no=content_no).one()
+    update_content = DocumentModel.query.filter_by(no=content_no).one()
 
     if request.method == 'POST':
-        nowTime = datetime.utcnow()
+        now = datetime.utcnow()
 
-        modifyContent.username = request.form['username']
-        modifyContent.title = request.form['title']
-        modifyContent.content = request.form['content']
-        modifyContent.modify_time = nowTime
+        update_content.username = request.form['username']
+        update_content.title = request.form['title']
+        update_content.content = request.form['content']
+        update_content.modify_time = now
 
         db.session.commit()
 
-        return redirect(url_for('doc_index', content_no=modifyContent.no))
+        return redirect(url_for('doc_index', content_no=update_content.no))
 
-    return render_template('document/update.html', doc_update=modifyContent)
+    return render_template('document/update.html', doc_update=update_content)
 
 
 @app.route('/document/delete/<content_no>')
 def doc_delete(content_no):
-    delContent = DocumentModel.query.filter_by(no=content_no).one()
+    delete_content = DocumentModel.query.filter_by(no=content_no).one()
 
-    db.session.delete(delContent)
+    db.session.delete(delete_content)
     db.session.commit()
 
     return redirect(url_for('doc_index'))
