@@ -20,6 +20,11 @@ class CommentModel(db.Model):
         ForeignKey('document.id')
     )  # comment's document id
 
+    user_id = Column(
+        Integer,
+        ForeignKey('user.id')
+    )  # comment's user id
+
     content = Column(
         String(200),
         nullable=False

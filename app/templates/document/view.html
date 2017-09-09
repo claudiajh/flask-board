@@ -5,7 +5,7 @@
   {% include 'header.html' %}
   <div class="ui stacked segment">
 
-    <div class="ui teal clearing segment">
+    <div class="ui teal segment">
       <h3 class="ui left floated header">
         {{ doc_view.title }}
       </h3>
@@ -20,16 +20,27 @@
         <a class="ui green basic button" href="{{ url_for('doc_index') }}">글 목록</a>
       </div>
 
-      <div class="ui clearing divider"></div>
-      <div class="ui form">
-        <div class="field">
-          <textarea name="content" rows="2" placeholder="Conents...."></textarea>
-        </div>
-        <a class="ui right floated teal mini button">댓글 쓰기</a>
-        {% if doc_view.id > 0 %}
+      <div class="ui divider"></div>
+
+      <div class="ui list">
+        {% if comment_view != 0 %}
+          {% for comment in comment_view %}
+            <div class="item" style="text-align: left;">
+              <div class="ui red horizontal label">{{ comment.username }}</div>
+              {{ comment.content }}
+            </div>
+          {% endfor %}
         {% endif %}
+        <div class="item">
+          <form class="ui form" action="{{ url_for('add_comment', doc_id = doc_view.id) }}" method="post">
+            <div class="field">
+              <textarea name="comment" rows="2" placeholder="Comments...."></textarea>
+            </div>
+            <button class="ui right aligned teal mini button">댓글 쓰기</button>
+          </form>
+        </div>
       </div>
+
     </div>
   </div>
-
 {% endblock %}

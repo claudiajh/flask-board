@@ -5,6 +5,7 @@ from flask import redirect, url_for, flash, request, render_template
 from app import app, db
 from app.models.DocumentModel import DocumentModel
 from app.models.UserModel import UserModel
+from app.route.comment import view_comment
 from app.util.query.query import getDocumentUserQuery
 
 
@@ -40,8 +41,11 @@ def doc_add():
 @app.route('/document/view/<doc_id>')
 def doc_view(doc_id):
     view_content = DocumentModel.query.filter_by(id=doc_id).one()
+    if view_content.comment_count > 0:
+        comment_content = view_comment(doc_id)
+        return render_template('document/view.html', doc_view=view_content, comment_view=comment_content)
 
-    return render_template('document/view.html', doc_view=view_content)
+    return render_template('document/view.html', doc_view=view_content, comment_view=0)
 
 
 @app.route('/document/update/<doc_id>', methods=['GET', 'POST'])
