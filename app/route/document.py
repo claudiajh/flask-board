@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import redirect, url_for, request, render_template
+from flask import redirect, url_for, flash, request, render_template
 
 from app import app, db
 from app.models.DocumentModel import DocumentModel
@@ -39,34 +39,51 @@ def doc_add():
 
 @app.route('/document/view/<doc_id>')
 def doc_view(doc_id):
-    view_content = DocumentModel.query.filter_by(user_id=doc_id).one()
+    view_content = DocumentModel.query.filter_by(id=doc_id).one()
 
     return render_template('document/view.html', doc_view=view_content)
 
 
 @app.route('/document/update/<doc_id>', methods=['GET', 'POST'])
 def doc_update(doc_id):
-    update_content = DocumentModel.query.filter_by(user_id=doc_id).one()
+    username = UserModel.query.filter_by(username=request.cookies.get('username')).one()
+    update_content = DocumentModel.query.filter_by(id=doc_id).one()
 
-    if request.method == 'POST':
-        now = datetime.utcnow()
+    if username.id == update_content.user_id:
+        if request.method == 'POST':
+            now = datetime.utcnow()
 
-        update_content.title = request.form['title']
-        update_content.content = request.form['content']
-        update_content.update_time = now
+            update_content.title = request.form['title']
+            update_content.content = request.form['content']
+            update_content.update_time = now
 
-        db.session.commit()
+            db.session.commit()
 
-        return redirect(url_for('doc_index', doc_id=update_content.id))
+            flash('글을 수정하였습니다.')
 
-    return render_template('document/update.html', doc_update=update_content)
+            return redirect(url_for('doc_index', doc_id=update_content.id))
+
+        return render_template('document/update.html', doc_update=update_content)
+
+    else:
+        flash('자신이 작성한 글이 아니면 수정할 수 없습니다.')
+        return redirect(url_for('doc_index'))
 
 
 @app.route('/document/delete/<doc_id>')
 def doc_delete(doc_id):
-    delete_content = DocumentModel.query.filter(user_id=doc_id).one()
+    username = UserModel.query.filter_by(username=request.cookies.get('username')).one()
+    delete_content = DocumentModel.query.filter_by(id=doc_id).one()
 
-    db.session.delete(delete_content)
-    db.session.commit()
+    if username.id == delete_content.user_id:
 
-    return redirect(url_for('doc_index'))
+        db.session.delete(delete_content)
+        db.session.commit()
+
+        flash('글이 삭제되었습니다.')
+        return redirect(url_for('doc_index'))
+
+
+    else:
+        flash('자신이 작성한 글이 아니면 삭제할 수 없습니다.')
+        return redirect(url_for('doc_index'))

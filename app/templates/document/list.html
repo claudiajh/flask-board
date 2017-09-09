@@ -5,6 +5,19 @@
   {% include 'header.html' %}
 
   <div class="ui stacked segment">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="ui negative message">
+          <i class="close icon"></i>
+          <div class="header">
+            {% for message in messages %}
+              {{ message }}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endwith %}
+
     <table class="ui teal table">
       <thead>
       <tr>
