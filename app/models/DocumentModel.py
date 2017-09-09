@@ -25,11 +25,6 @@ class DocumentModel(db.Model):
         nullable=False
     )  # document content
 
-    board_id = Column(
-        Integer,
-        ForeignKey('board.id')
-    )
-
     user_id = Column(
         Integer,
         ForeignKey('user.id')
