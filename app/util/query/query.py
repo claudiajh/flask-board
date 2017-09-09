@@ -22,5 +22,5 @@ def getCommentUSerQuery():
                       CommentModel.user_id,
                       UserModel.username,
                       CommentModel.content,
-                      CommentModel.create_time). \
+                      CommentModel.update_time). \
         filter(CommentModel.user_id == UserModel.id)

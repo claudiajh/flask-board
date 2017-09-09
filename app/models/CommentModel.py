@@ -30,6 +30,6 @@ class CommentModel(db.Model):
         nullable=False
     )  # document content
 
-    create_time = Column(
+    update_time = Column(
         DateTime
     )  # comment create date

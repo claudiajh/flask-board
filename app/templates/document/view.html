@@ -2,63 +2,110 @@
 
 {% block body %}
 
-    {% include 'header.html' %}
-    <div class="ui stacked segment">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="ui negative message">
-                <i class="close icon"></i>
-                <div class="header">
-                    {% for message in messages %}
-                        {{ message }}
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
-    {% endwith %}
-        <div class="ui teal segment">
-            <h3 class="ui left floated header">
-                {{ doc_view.title }}
-            </h3>
-            <h3 class="ui right floated sub header">
-                작성자 : {{ doc_view.user_id }} {{ doc_view.create_time }}</h3>
-            <div class="ui clearing divider"></div>
-            <div class="ui left aligned header">{{ doc_view.content }}</div>
-
-            <div class="ui buttons">
-                <a class="ui red basic button" href="{{ url_for('doc_update', doc_id=doc_view.id) }}">글 수정</a>
-                <a class="ui blue basic button" href="{{ url_for('doc_delete', doc_id=doc_view.id) }}">글삭제</a>
-                <a class="ui green basic button" href="{{ url_for('doc_index') }}">글 목록</a>
-            </div>
-
-            <div class="ui divider"></div>
-
-            <div class="ui list">
-                {% if comment_view != 0 %}
-                    {% for comment in comment_view %}
-                        <div class="item" style="text-align: left;">
-                            <div class="ui red horizontal label">{{ comment.username }}</div>
-                            {{ comment.content }}
-                            <a href="{{ url_for('delete_comment', comment_id=comment.id) }}">
-                                <i class="remove circle outline icon right floated"></i>
-                            </a>
-                            <a href="{{ url_for('doc_index') }}">
-                                <i class="write icon right floated"></i>
-                            </a>
-                            <div class="ui right floated">{{ comment.create_time }}</div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                <div class="item">
-                    <form class="ui form" action="{{ url_for('add_comment', doc_id = doc_view.id) }}" method="post">
-                        <div class="field">
-                            <textarea name="comment" rows="2" placeholder="Comments...."></textarea>
-                        </div>
-                        <button class="ui right aligned teal mini button">댓글 쓰기</button>
-                    </form>
-                </div>
-            </div>
-
+  {% include 'header.html' %}
+  <div class="ui stacked segment">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="ui negative message">
+          <i class="close icon"></i>
+          <div class="header">
+            {% for message in messages %}
+              {{ message }}
+            {% endfor %}
+          </div>
         </div>
+      {% endif %}
+    {% endwith %}
+    <div class="ui teal segment">
+      <h3 class="ui left floated header">
+        {{ doc_view.title }}
+      </h3>
+      <h3 class="ui right floated sub header">
+        작성자 : {{ doc_view.user_id }} {{ doc_view.create_time }}</h3>
+      <div class="ui clearing divider"></div>
+      <div class="ui left aligned header">{{ doc_view.content }}</div>
+
+      <div class="ui buttons">
+        <a class="ui red basic button" href="{{ url_for('doc_update', doc_id=doc_view.id) }}">글 수정</a>
+        <a class="ui blue basic button" href="{{ url_for('doc_delete', doc_id=doc_view.id) }}">글삭제</a>
+        <a class="ui green basic button" href="{{ url_for('doc_index') }}">글 목록</a>
+      </div>
+
+      <div class="ui divider"></div>
+
+      <div class="ui list">
+        {% if comment_view != 0 %}
+          {% for comment in comment_view %}
+            <div class="comment item" id="{{ comment.id }}" style="text-align: left;">
+              <div class="ui red horizontal label">{{ comment.username }}</div>
+
+              <div class="ui action input" id="edit-comment" style="display: none;">
+                <input type="text" id='edit_comment' value="{{ comment.content }}">
+                <button class="ui icon button" onclick="edit_comment({{ comment.id }})">
+                  <i class="arrow right icon"></i>
+                </button>
+              </div>
+
+              <span id="comment">
+                <span id="view_comment">{{ comment.content }}</span>
+                <i class="remove circle outline icon right floated" onclick="delete_comment({{ comment.id }})"></i>
+                <i class="write icon right floated" onclick="view_comment({{ comment.id }})"></i>
+                <div class="ui right floated">{{ comment.update_time }}</div>
+            </span>
+            </div>
+          {% endfor %}
+        {% endif %}
+        <div class="item">
+          <form class="ui form" action="{{ url_for('add_comment', doc_id=doc_view.id) }}" method="POST">
+            <div class="field">
+              <textarea name="comment" id="add_comment" rows="2" placeholder="Comments...."></textarea>
+            </div>
+            <button class="ui right aligned teal mini button">댓글 쓰기</button>
+          </form>
+        </div>
+      </div>
+
     </div>
+  </div>
+
+  <script>
+    function edit_comment(id) {
+      $('#' + id + ' #comment').toggle();
+      $('#' + id + ' #edit-comment').toggle();
+      var edit_comment = {
+        comment: $('#' + id + ' #edit_comment').val()
+      };
+      $.ajax({
+        url: '/document/update/comment/' + id,
+        type: "POST",
+        contentType: "application/json; charset=UTF-8",
+        dataType: 'json',
+        data: JSON.stringify(edit_comment),
+        success: function () {
+          $('#' + id + ' #view_comment').val(edit_comment.comment)
+        },
+        error: function (jq, res, text) {
+          console.log(jq);
+          console.log(res);
+          console.log(text)
+
+        }
+      })
+    }
+
+    function view_comment(id) {
+      $('#' + id + ' #comment').toggle();
+      $('#' + id + ' #edit-comment').toggle();
+    }
+
+    function delete_comment(id) {
+      $.ajax({
+        url: '/document/delete/comment/' + id,
+        type: "GET",
+        success: function () {
+          $('.comment.item#' + id).remove()
+        }
+      })
+    }
+  </script>
 {% endblock %}
