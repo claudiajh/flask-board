@@ -1,14 +1,49 @@
+from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import ForeignKey
+
 from app import db
 
 
 class DocumentModel(db.Model):
     __tablename__ = 'document'
-    __table_args__ = {'mysql_collate': 'utf8_general_ci'}
+    __table_args__ = {
+        'mysql_collate': 'utf8_general_ci'
+    }
 
-    no = db.Column(db.Integer, primary_key=True)  # 번호
-    title = db.Column(db.String(80), nullable=False)  # 제목
-    content = db.Column(db.String(200), nullable=False)  # 내용
-    username = db.Column(db.String(50), nullable=False)  # 작성자
-    create_time = db.Column(db.DATETIME)  # 작성일
-    modify_time = db.Column(db.DATETIME)  # 수정일
-    coment_count = db.Column(db.Integer, nullable=False)  # 댓글수
+    id = Column(
+        Integer,
+        primary_key=True
+    )  # document id
+
+    title = Column(
+        String(80),
+        nullable=False
+    )  # document title
+
+    content = Column(
+        String(200),
+        nullable=False
+    )  # document content
+
+    board_id = Column(
+        Integer,
+        ForeignKey('board.id')
+    )
+
+    user_id = Column(
+        Integer,
+        ForeignKey('user.id')
+    )  # document write user
+
+    create_time = Column(
+        DateTime
+    )  # document create date
+
+    update_time = Column(
+        DateTime
+    )  # document update date
+
+    comment_count = Column(
+        Integer,
+        nullable=False
+    )  # comment count
