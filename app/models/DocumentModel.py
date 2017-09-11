@@ -1,3 +1,5 @@
+import datetime
+
 from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy import ForeignKey
 
@@ -13,32 +15,35 @@ class DocumentModel(db.Model):
     id = Column(
         Integer,
         primary_key=True
-    )  # document id
+    )
 
     title = Column(
         String(80),
         nullable=False
-    )  # document title
+    )
 
     content = Column(
         String(200),
         nullable=False
-    )  # document content
+    )
 
     user_id = Column(
         Integer,
         ForeignKey('user.id')
-    )  # document write user
-
-    create_time = Column(
-        DateTime
-    )  # document create date
-
-    update_time = Column(
-        DateTime
-    )  # document update date
+    )
 
     comment_count = Column(
         Integer,
+        default=0,
         nullable=False
-    )  # comment count
+    )
+
+    create_time = Column(
+        DateTime,
+        default=datetime.datetime.utcnow
+    )
+
+    update_time = Column(
+        DateTime,
+        default=datetime.datetime.utcnow
+    )
