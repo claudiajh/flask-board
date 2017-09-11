@@ -99,8 +99,12 @@
       $.ajax({
         url: '/document/delete/comment/' + id,
         type: "GET",
-        success: function () {
-          $('.comment.item#' + id).remove()
+        success: function (res) {
+          $('.comment.item#' + id).remove();
+          alert(res['result'])
+        },
+        error: function (jq) {
+          alert(jq.responseJSON['result']);
         }
       })
     }

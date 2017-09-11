@@ -5,4 +5,4 @@ from app import app
 
 @app.route('/')
 def index():
-    return redirect(url_for('signin_index'))
+    return redirect(url_for('signin'))

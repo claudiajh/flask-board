@@ -15,7 +15,7 @@ def getDocumentUserQuery():
         filter(DocumentModel.user_id == UserModel.id)
 
 
-def getCommentUSerQuery():
+def getCommentUserQuery():
     return CommentModel.query. \
         with_entities(CommentModel.id,
                       CommentModel.document_id,
