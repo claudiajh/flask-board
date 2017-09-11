@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import request, redirect, url_for, flash
+from flask import request, redirect, url_for, flash, jsonify
 
 from app import app, db
 from app.models.CommentModel import CommentModel
@@ -30,6 +30,7 @@ def add_comment(doc_id):
 
     return redirect(url_for('doc_view', doc_id=doc_id))
 
+
 def view_comment(doc_id):
     return getCommentUSerQuery().filter_by(document_id=doc_id)
 
@@ -45,24 +46,21 @@ def update_comment(comment_id):
         db.session.commit()
 
     else:
-        return "해당 사용자가 아니면 수정 할 수 없습니다.", 404
+        return jsonify({'result': "해당 사용자가 아니면 수정 할 수 없습니다."}), 404
 
-    return '성공했습니다.', 200
+    return jsonify({'result': '성공했습니다.'}), 200
 
 
 @app.route('/document/delete/comment/<comment_id>')
 def delete_comment(comment_id):
     username = UserModel.query.filter_by(username=request.cookies.get('username')).one()
-    delete = getCommentUSerQuery().filter_by(id=comment_id).one()
+    comment = CommentModel.query.filter_by(id=comment_id).one()
 
-    if username.id == delete.user_id:
-        delete_content = CommentModel.query.filter_by(id=comment_id).one()
+    if username.id == comment.user_id:
+        document = DocumentModel.query.filter_by(id=comment.document_id).one()
+        document.comment_count = document.comment_count - 1
 
-        update_content = DocumentModel.query.filter_by(id=delete_content.document_id).one()
-        update_content.comment_count = update_content.comment_count - 1
-
-        db.session.delete(delete_content)
-
+        db.session.delete(comment)
         db.session.commit()
 
     else:

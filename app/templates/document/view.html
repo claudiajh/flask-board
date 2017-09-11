@@ -49,7 +49,7 @@
               <span id="comment">
                 <span id="view_comment">{{ comment.content }}</span>
                 <i class="remove circle outline icon right floated" onclick="delete_comment({{ comment.id }})"></i>
-                <i class="write icon right floated" onclick="view_comment({{ comment.id }})"></i>
+                <i class="write icon right floated" onclick="toggle_comment({{ comment.id }})"></i>
                 <div class="ui right floated">{{ comment.update_time }}</div>
             </span>
             </div>
@@ -69,9 +69,13 @@
   </div>
 
   <script>
-    function edit_comment(id) {
+    function toggle_comment(id) {
       $('#' + id + ' #comment').toggle();
       $('#' + id + ' #edit-comment').toggle();
+    }
+
+    function edit_comment(id) {
+      toggle_comment(id);
       var edit_comment = {
         comment: $('#' + id + ' #edit_comment').val()
       };
@@ -81,21 +85,14 @@
         contentType: "application/json; charset=UTF-8",
         dataType: 'json',
         data: JSON.stringify(edit_comment),
-        success: function () {
-          $('#' + id + ' #view_comment').val(edit_comment.comment)
+        success: function (res) {
+          $('#' + id + ' #view_comment').text(edit_comment.comment);
+          alert(res['result'])
         },
-        error: function (jq, res, text) {
-          console.log(jq);
-          console.log(res);
-          console.log(text)
-
+        error: function (jq) {
+          alert(jq.responseJSON['result']);
         }
       })
-    }
-
-    function view_comment(id) {
-      $('#' + id + ' #comment').toggle();
-      $('#' + id + ' #edit-comment').toggle();
     }
 
     function delete_comment(id) {
